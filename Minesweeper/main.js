@@ -1,13 +1,22 @@
-var difficulty = "";
-var rows = 0;
-var columns = 0;
-var mines = 0;
-var minesLocation = [];
 var board = [];
-var flagEnabled = false;
-var gameOver = false;
+var rows = 8;
+var columns = 8;
+
+var minesCount = 10;
+var minesLocation = []; 
+
 var tilesClicked = 0; 
+var flagEnabled = false;
+
+var gameOver = false;
+var difficulty ="";
 //#region DIFFICULTY
+function removeClicked(){
+    var allDivs = [].slice.call(document.getElementsByTagName("div"));
+    allDivs.forEach(element => {
+        element.className = '';
+    });
+}
 document.getElementById("easy").addEventListener('click',function(){
     removeClicked()
     document.getElementById("easy").classList.remove("easy");
@@ -45,62 +54,35 @@ document.getElementById("extreme").addEventListener('click',function(){
     difficulty = "extreme";
 });
 //#endregion
-
-
-//#region GAME
-document.getElementById("start").addEventListener('click',function(){
-    CreateBoard();
-});
-
-function CreateBoard(){
-    var elem = document. getElementById("allthethings"); 
-    elem. parentNode. removeChild(elem);
-    var div = document.createElement("div");
-    div.innerHTML ="<div id='board'></div><br><button id='flag-button'>🚩</button>";
-    div.className = "game"
-    document.body.appendChild(div);
-    SetBoard(difficulty)
-}
-function SetBoard(difficulty){
+document.getElementById("start").addEventListener('click', function(){
+    document.getElementById("allthethings").style.display = "none";
+    document.getElementById("container").style.display = "block";
     switch(difficulty){
         case "easy":
             rows = 9;
             columns = 9;
-            mines = 10;
+            minesCount = 10
+            break;
         case "medium":
             rows = 16;
-            columns = 16;
-            mines = 40;
+            columns = 16
+            minesCount = 40;
+            break;
         case "hard":
             rows = 30;
             columns = 16;
-            mines = 99;
-        case "medium":
+            minesCount = 99;
+            break;
+        case "extreme":
             rows = 50;
             columns = 50;
-            mines = 500;
+            minesCount = 500;
+            break;
     }
-    document.getElementById("flag-button").addEventListener("click", setFlag);
-    setMines();
-
-    for (let r = 0; r < rows; r++) {
-        let row = [];
-        for (let c = 0; c < columns; c++) {
-            let tile = document.createElement("div");
-            tile.id = r.toString() + "-" + c.toString();
-            tile.addEventListener("click", clickTile);
-            document.getElementById("board").append(tile);
-            row.push(tile);
-        }
-        board.push(row);
-    }
-
-    console.log(board);
-}
+    startGame();
+});
 function setMines() {
-   
-
-    let minesLeft = mines;
+    let minesLeft = minesCount;
     while (minesLeft > 0) { 
         let r = Math.floor(Math.random() * rows);
         let c = Math.floor(Math.random() * columns);
@@ -112,6 +94,39 @@ function setMines() {
         }
     }
 }
+
+
+function startGame() {
+    
+    document.getElementById("mines-count").innerText = minesCount;
+    document.getElementById("flag-button").addEventListener("click", setFlag);
+    setMines();
+
+    //populate our board
+    for (let r = 0; r < rows; r++) {
+        let row = [];
+        for (let c = 0; c < columns; c++) {
+            //<div id="0-0"></div>
+            let tile = document.createElement("div");
+            tile.id = r.toString() + "-" + c.toString();
+            tile.className = "tile"
+            tile.addEventListener("click", clickTile);
+            document.getElementById("board").append(tile);
+            row.push(tile);
+        }
+        board.push(row);
+    }
+    var collectionTile = document.getElementsByClassName('custid');
+    var w = (600/columns)-2;
+    var h = (600/rows)-2;
+    
+    for (let element of collectionTile){
+        element.style.width= w+"px";
+        element.style.height= h+"px";
+    }
+    console.log(board);
+}
+
 function setFlag() {
     if (flagEnabled) {
         flagEnabled = false;
@@ -230,12 +245,3 @@ function checkTile(r, c) {
     }
     return 0;
 }
-//#endregion
-//#region FUNCTIONS
-function removeClicked(){
-    var allDivs = [].slice.call(document.getElementsByTagName("div"));
-    allDivs.forEach(element => {
-        element.className = '';
-    });
-}
-//#endregion
