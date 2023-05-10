@@ -1,16 +1,20 @@
+//#region VARIABLES
 var board = [];
 var rows = 8;
 var columns = 8;
-
 var minesCount = 10;
 var minesLocation = []; 
-
 var tilesClicked = 0; 
 var flagEnabled = false;
-
 var gameOver = false;
 var difficulty ="easy";
+//#endregion
+
+document.getElementById("start").addEventListener('click', setBoard)
+
+//#region RESTART
 document.getElementById("restart").addEventListener('click', EmptyVar)
+
 function EmptyVar(){
     document.getElementById("board").innerHTML ="";
     board = [];
@@ -23,6 +27,8 @@ function EmptyVar(){
     gameOver = false;
     setBoard();
 }
+//#endregion
+
 //#region DIFFICULTY
 function removeClicked(){
     var allDivs = [].slice.call(document.getElementsByTagName("div"));
@@ -67,6 +73,8 @@ document.getElementById("extreme").addEventListener('click',function(){
     difficulty = "extreme";
 });
 //#endregion
+
+//#region SET-GAME
 function setBoard(){
     document.getElementById("allthethings").style.display = "none";
     document.getElementById("container").style.display = "block";
@@ -94,7 +102,7 @@ function setBoard(){
     }
     startGame();
 }
-document.getElementById("start").addEventListener('click', setBoard)
+
 function setMines() {
     let minesLeft = minesCount;
     while (minesLeft > 0) { 
@@ -110,6 +118,19 @@ function setMines() {
 }
 
 
+function setFlag() {
+    if (flagEnabled) {
+        flagEnabled = false;
+        document.getElementById("flag-button").style.backgroundColor = "lightgray";
+    }
+    else {
+        flagEnabled = true;
+        document.getElementById("flag-button").style.backgroundColor = "darkgray";
+    }
+}
+//#endregion
+
+ //#region GAME
 function startGame() {
     
     document.getElementById("mines-count").innerText = minesCount;
@@ -138,16 +159,6 @@ function startGame() {
     }
 }
 
-function setFlag() {
-    if (flagEnabled) {
-        flagEnabled = false;
-        document.getElementById("flag-button").style.backgroundColor = "lightgray";
-    }
-    else {
-        flagEnabled = true;
-        document.getElementById("flag-button").style.backgroundColor = "darkgray";
-    }
-}
 
 function clickTile() {
     if (gameOver || this.classList.contains("tile-clicked")) {
@@ -246,7 +257,6 @@ function checkMine(r, c) {
 
 }
 
-
 function checkTile(r, c) {
     if (r < 0 || r >= rows || c < 0 || c >= columns) {
         return 0;
@@ -256,3 +266,4 @@ function checkTile(r, c) {
     }
     return 0;
 }
+//#endregion
