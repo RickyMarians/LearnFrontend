@@ -9,7 +9,20 @@ var tilesClicked = 0;
 var flagEnabled = false;
 
 var gameOver = false;
-var difficulty ="";
+var difficulty ="easy";
+document.getElementById("restart").addEventListener('click', EmptyVar)
+function EmptyVar(){
+    document.getElementById("board").innerHTML ="";
+    board = [];
+    rows = 0;
+    columns = 0;
+    minesCount = 0;
+    minesLocation = []; 
+    tilesClicked = 0; 
+    flagEnabled = false;
+    gameOver = false;
+    setBoard();
+}
 //#region DIFFICULTY
 function removeClicked(){
     var allDivs = [].slice.call(document.getElementsByTagName("div"));
@@ -54,7 +67,7 @@ document.getElementById("extreme").addEventListener('click',function(){
     difficulty = "extreme";
 });
 //#endregion
-document.getElementById("start").addEventListener('click', function(){
+function setBoard(){
     document.getElementById("allthethings").style.display = "none";
     document.getElementById("container").style.display = "block";
     switch(difficulty){
@@ -80,7 +93,8 @@ document.getElementById("start").addEventListener('click', function(){
             break;
     }
     startGame();
-});
+}
+document.getElementById("start").addEventListener('click', setBoard)
 function setMines() {
     let minesLeft = minesCount;
     while (minesLeft > 0) { 
@@ -102,11 +116,9 @@ function startGame() {
     document.getElementById("flag-button").addEventListener("click", setFlag);
     setMines();
 
-    //populate our board
     for (let r = 0; r < rows; r++) {
         let row = [];
         for (let c = 0; c < columns; c++) {
-            //<div id="0-0"></div>
             let tile = document.createElement("div");
             tile.id = r.toString() + "-" + c.toString();
             tile.className = "tile"
@@ -116,7 +128,7 @@ function startGame() {
         }
         board.push(row);
     }
-    var collectionTile = document.getElementsByClassName('custid');
+    var collectionTile = document.getElementsByClassName('tile');
     var w = (600/columns)-2;
     var h = (600/rows)-2;
     
@@ -124,7 +136,6 @@ function startGame() {
         element.style.width= w+"px";
         element.style.height= h+"px";
     }
-    console.log(board);
 }
 
 function setFlag() {
@@ -155,14 +166,14 @@ function clickTile() {
     }
 
     if (minesLocation.includes(tile.id)) {
-        // alert("GAME OVER");
+        
         gameOver = true;
         revealMines();
         return;
     }
 
 
-    let coords = tile.id.split("-"); // "0-0" -> ["0", "0"]
+    let coords = tile.id.split("-"); 
     let r = parseInt(coords[0]);
     let c = parseInt(coords[1]);
     checkMine(r, c);
