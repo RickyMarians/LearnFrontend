@@ -251,12 +251,37 @@ function checkMine(r, c) {
     }
 
     if (tilesClicked == rows * columns - minesCount) {
-        document.getElementById("mines-count").innerText = "Cleared";
+        document.getElementById("particles-js").style.display="none";
+        document.getElementById("container").style.display="none";
+        document.body.style.backgroundColor = "black";
+        var allDivs = [].slice.call(document.getElementsByTagName("div"));
+        allDivs.forEach(element => {
+            if(element.id ==""){
+                element.className = 'firework';
+                element.style.display = "block";
+            }
+            
+        });
+        document.getElementById("win").style.display ="block"
         gameOver = true;
     }
 
 }
-
+document.getElementById("test").addEventListener('click',function(){
+    document.getElementById("particles-js").style.display="none";
+    document.getElementById("container").style.display="none";
+    document.body.style.backgroundColor = "black";
+    var allDivs = [].slice.call(document.getElementsByTagName("div"));
+    allDivs.forEach(element => {
+        if(element.id ==""){
+            element.className = 'firework';
+            element.style.display = "block";
+        }
+        
+    });
+    document.getElementById("win").style.display ="block"
+})
+    
 function checkTile(r, c) {
     if (r < 0 || r >= rows || c < 0 || c >= columns) {
         return 0;
