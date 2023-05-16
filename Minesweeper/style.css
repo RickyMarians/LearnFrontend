@@ -710,6 +710,7 @@ body {
   font-family: 'Permanent Marker', cursive;
   font-variant:small-caps;
   font-size: 180px;
+  width: 590px;
   -webkit-transform: skew(-15deg,-15deg);
   padding-left: 80px;
   background-image: -webkit-linear-gradient(#FF0FF8 0%,  #F9F9F7 100%);
@@ -766,3 +767,22 @@ body {
   -webkit-background-clip: text;
 }
 /*#endregion VICTORY*/
+/*#region BACK TO MENU*/
+
+.menu-btn {
+  position: absolute;
+  font-family: 'Permanent Marker', cursive;
+  font-variant:small-caps;
+  font-size: 60px;
+  margin-top: 500px;
+  width: 590px;
+  -webkit-transform: skew(-15deg,-15deg);
+  padding-left: 80px;
+  background-image: -webkit-linear-gradient(#e4b20f 0%,  #fce8cf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-filter: drop-shadow(2px 2px 20px #ecb63f);
+  display: none;
+  cursor: pointer;
+}
+/*#endregion BACK TO MENU*/

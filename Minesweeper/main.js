@@ -263,11 +263,15 @@ function checkMine(r, c) {
             
         });
         document.getElementById("win").style.display ="block"
+        document.getElementById("menu").style.display ="block"
+        document.getElementById("menu").addEventListener('click',backToMenu);
         gameOver = true;
     }
 
 }
-    
+function backToMenu(){
+    location.reload();
+}
 function checkTile(r, c) {
     if (r < 0 || r >= rows || c < 0 || c >= columns) {
         return 0;
