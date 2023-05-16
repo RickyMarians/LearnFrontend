@@ -444,7 +444,7 @@ body {
  {
    --initialSize: 0.5vmin;
    --finalSize: 45vmin;
-   --particleSize: 0.2vmin;
+   --particleSize: 0.5vmin;
    --color1: yellow;
    --color2: khaki;
    --color3: white;
@@ -455,7 +455,7 @@ body {
    --x: -50%;
    --initialY: 45vmin;
    content: "";
-   animation: firework 2s infinite;
+   animation: firework 3s infinite;
    position: absolute;
    top: 50%;
    left: 50%;
@@ -530,7 +530,7 @@ body {
    --initialY: -50%;
  /*   transform: translate(44vmin, -50%) rotate(170deg) scale(1.15) rotateY(-30deg); */
    transform: translate(-50%, -50%) rotate(170deg) scale(1.15) rotateY(-30deg);
- /*   animation: fireworkPseudo 2s infinite; */
+   /* animation: fireworkPseudo s infinite; */
  }
  
  .firework:nth-child(2) {
@@ -704,8 +704,9 @@ body {
 }
 /*#endregion FIREWORKS*/
 /*#region VICTORY*/
+
 .victory {
-  position: relative;
+  position: absolute;
   font-family: 'Permanent Marker', cursive;
   font-variant:small-caps;
   font-size: 180px;
